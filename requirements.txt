@@ -1,0 +1,6 @@
+pyrebase5==5.0.1
+pyttsx3==2.90
+PyAutoGUI==0.9.53+
+opencv-python==4.8.0.74
+requests==2.29.0
+colorama==0.4.4
