@@ -121,7 +121,7 @@ while True:
             download(data.split(maxsplit=1)[1].strip(),data.split(maxsplit=1)[1].strip())
         elif data.split(maxsplit=1)[0].strip()=="say":
             say(data.split(maxsplit=1)[1].strip())
-        elif data=="bitch":
+        elif data=="b*tch":
             run_command("start https://www.youtube.com/watch?v=iik25wqIuFo")
         else:
             send("d0ne")
