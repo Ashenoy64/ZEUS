@@ -33,7 +33,7 @@ def printFunction():
 5. upload <filename> #uploads the file to firebase 
 6. download <filename> #downloads file from firebase
 7. say <text> #text will be spoken
-8. bitch
+8. b*tch
     ''')
 
 
